@@ -1,88 +1,72 @@
-package GUIPROJEKT;
+package ProjektAnwesendheitssystem.src.Guiprojekt;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 
-public class Java_GUI extends JFrame {
-    private JComboBox<String> nameComboBox;
-    private JPasswordField passwordField;
-    private AdminPanel adminPanel;
-
-    public Java_GUI() {
-        // Initialisierung des JFrame und anderer Komponenten
-
-        adminPanel = new AdminPanel(this);
-        setJMenuBar(adminPanel.createMenuBar());
-
-        // Weitere Initialisierung und Anzeige des JFrame
-    }
-
-    // Weitere Methoden und Code der Java_GUI-Klasse
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new Java_GUI();
-            }
-        });
-    }
-}
-
-class AdminPanel {
+public class AdminPanel extends JMenu {
     private Java_GUI javaGUI;
-    private JMenuBar menuBar;
+    private JMenuItem addPersonMenuItem;
+    private JMenuItem editPersonMenuItem;
+    private JMenuItem deletePersonMenuItem;
 
     public AdminPanel(Java_GUI javaGUI) {
         this.javaGUI = javaGUI;
+        setText("AdminPanel");
+
+        addPersonMenuItem = new JMenuItem("Person hinzufügen");
+        editPersonMenuItem = new JMenuItem("Person bearbeiten");
+        deletePersonMenuItem = new JMenuItem("Person entfernen");
+
+        add(addPersonMenuItem);
+        add(editPersonMenuItem);
+        add(deletePersonMenuItem);
+
+        addPersonMenuItem.addActionListener(e -> {
+            addPerson();
+        });
+
+        editPersonMenuItem.addActionListener(e -> {
+            editPerson();
+        });
+
+        deletePersonMenuItem.addActionListener(e -> {
+            deletePerson();
+        });
+    }
+
+    private void addPerson() {
+        String name = JOptionPane.showInputDialog(javaGUI, "Geben Sie den Namen der Person ein:");
+        if (name != null && !name.isEmpty()) {
+            // Fügen Sie den Code zum Hinzufügen der Person hier ein
+            JOptionPane.showMessageDialog(javaGUI, "Person hinzugefügt: " + name);
+        }
+    }
+
+    private void editPerson() {
+        String name = JOptionPane.showInputDialog(javaGUI, "Geben Sie den Namen der zu bearbeitenden Person ein:");
+        if (name != null && !name.isEmpty()) {
+            // Fügen Sie den Code zum Bearbeiten der Person hier ein
+            JOptionPane.showMessageDialog(javaGUI, "Person bearbeiten: " + name);
+        }
+    }
+
+    private void deletePerson() {
+        String name = JOptionPane.showInputDialog(javaGUI, "Geben Sie den Namen der zu löschenden Person ein:");
+        if (name != null && !name.isEmpty()) {
+            // Fügen Sie den Code zum Entfernen der Person hier ein
+            JOptionPane.showMessageDialog(javaGUI, "Person entfernen: " + name);
+        }
     }
 
     public JMenuBar createMenuBar() {
-        menuBar = new JMenuBar();
-
-        JMenu adminMenu = new JMenu("Admin");
-
-        JMenuItem addPersonMenuItem = new JMenuItem("Person hinzufügen");
-        addPersonMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addPerson();
-            }
-        });
-
-        JMenuItem editPersonMenuItem = new JMenuItem("Person bearbeiten");
-        editPersonMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                editPerson();
-            }
-        });
-
-        JMenuItem removePersonMenuItem = new JMenuItem("Person entfernen");
-        removePersonMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removePerson();
-            }
-        });
-
-        adminMenu.add(addPersonMenuItem);
-        adminMenu.add(editPersonMenuItem);
-        adminMenu.add(removePersonMenuItem);
-
-        menuBar.add(adminMenu);
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.add(this);
 
         return menuBar;
     }
 
-    private void addPerson() {
-        // Implementiere die Logik zum Hinzufügen einer Person
-    }
-
-    private void editPerson() {
-        // Implementiere die Logik zum Bearbeiten einer Person
-    }
-
-    private void removePerson() {
-        // Implementiere die Logik zum Entfernen einer Person
+    public void showAdminPanel() {
+        javaGUI.setJMenuBar(createMenuBar());
     }
 }

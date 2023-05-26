@@ -1,4 +1,5 @@
-package GUIPROJEKT;
+package ProjektAnwesendheitssystem.src.Guiprojekt;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +15,6 @@ public class Java_GUI extends JFrame {
     private JCheckBox showPasswordCheckBox;
     private JButton loginButton;
     private JButton cancelButton;
-    private AdminPanel adminPanel;
 
     private Map<String, String> userPasswords;
 
@@ -24,9 +24,6 @@ public class Java_GUI extends JFrame {
         setSize(400, 250);
         setResizable(false);
         setLocationRelativeTo(null);
-
-        adminPanel = new AdminPanel(this);
-        setJMenuBar(adminPanel.createMenuBar());
 
         // Initialisiere die Benutzernamen und Passwörter
         userPasswords = new HashMap<>();
@@ -70,7 +67,9 @@ public class Java_GUI extends JFrame {
                 char[] password = passwordField.getPassword();
 
                 if (isValidLogin(selectedName, password)) {
-                    JOptionPane.showMessageDialog(Java_GUI.this, "Anmeldung erfolgreich!");
+                    // Öffne die Admin GUI, wenn die Anmeldung erfolgreich ist
+                    AdminGUI adminGUI = new AdminGUI();
+                    adminGUI.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(Java_GUI.this, "Ungültige Anmeldedaten!", "Fehler", JOptionPane.ERROR_MESSAGE);
                     passwordField.setText("");
@@ -94,69 +93,53 @@ public class Java_GUI extends JFrame {
             }
         });
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
+        // Füge die Komponenten zum Panel hinzu
+
         panel.add(nameLabel, gbc);
-
         gbc.gridx = 1;
-        gbc.gridy = 0;
         panel.add(nameComboBox, gbc);
-
-        gbc.gridx = 0;
         gbc.gridy = 1;
+        gbc.gridx = 0;
         panel.add(passwordLabel, gbc);
-
         gbc.gridx = 1;
-        gbc.gridy = 1;
         panel.add(passwordField, gbc);
-
-        gbc.gridx = 1;
         gbc.gridy = 2;
-        panel.add(showPasswordCheckBox, gbc);
-
         gbc.gridx = 0;
+        gbc.gridwidth = 2;
+        panel.add(showPasswordCheckBox, gbc);
         gbc.gridy = 3;
+        gbc.gridx = 0;
+        gbc.gridwidth = 1;
+        panel.add(loginButton, gbc);
+        gbc.gridx = 1;
         panel.add(cancelButton, gbc);
 
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        panel.add(loginButton, gbc);
-
         add(panel);
-
         setVisible(true);
+    }
+
+    private boolean isValidLogin(String selectedName, char[] password) {
+        String passwordString = new String(password);
+        String storedPassword = userPasswords.get(selectedName);
+
+        return storedPassword != null && storedPassword.equals(passwordString);
     }
 
     private void sortNames() {
         List<String> names = new ArrayList<>();
-        int itemCount = nameComboBox.getItemCount();
-        for (int i = 0; i < itemCount; i++) {
-            String name = (String) nameComboBox.getItemAt(i);
-            if (!name.equals("-")) {
-                names.add(name);
-            }
+        for (int i = 0; i < nameComboBox.getItemCount(); i++) {
+            names.add(nameComboBox.getItemAt(i));
         }
-
         Collections.sort(names);
-
         nameComboBox.removeAllItems();
-        nameComboBox.addItem("-");
         for (String name : names) {
             nameComboBox.addItem(name);
         }
     }
 
-    private boolean isValidLogin(String selectedName, char[] password) {
-        String storedPassword = userPasswords.get(selectedName);
-        if (storedPassword != null) {
-            String enteredPassword = new String(password);
-            return storedPassword.equals(enteredPassword);
-        }
-        return false;
-    }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Java_GUI();
             }
