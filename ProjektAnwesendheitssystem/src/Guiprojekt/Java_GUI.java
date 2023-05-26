@@ -1,4 +1,4 @@
-package GUIPROJEKT;
+package Guiprojekt;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
