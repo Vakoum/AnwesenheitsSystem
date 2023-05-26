@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 package ProjektAnwesendheitssystem.src.Guiprojekt;
 
 import javax.swing.*;
+=======
+package Guiprojekt;
+>>>>>>> 72b1ef399cd74e28fd2de0faf86da94e6c623a81
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
