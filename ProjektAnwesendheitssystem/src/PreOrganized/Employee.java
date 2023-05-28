@@ -8,4 +8,16 @@ public class Employee {
 	private Double totalWorkTime;
 	private boolean is_admin;
 	
+	public Employee(int id, String fN, String lN, String pw, boolean i_A) {
+		employeeID = id;
+		firstName = fN;
+		lastName = lN;
+		password = pw;
+		//totalWorkTime = tWT;
+		is_admin = i_A;
+	}
+	public int getEmployeeID() {
+		return employeeID;
+	}
+	
 }

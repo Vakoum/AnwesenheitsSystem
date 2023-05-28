@@ -13,11 +13,11 @@ public class datenbankenVerbindungTest {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/anwesensheitssystem", "root", "");
 			System.out.println("Databese Connected!");
 			Statement statement = connection.createStatement();
-			String sqlCommand = "SELECT * FROM mitarbeiter";
+			String sqlCommand = "SELECT vorname, id FROM mitarbeiter";
 			ResultSet resultSet = statement.executeQuery(sqlCommand);
 			//Object data = resultSet.getObject(1);
 			if(resultSet.next()){
-				Object firstValue = resultSet.getObject(2);
+				Object firstValue = resultSet.getObject(3);
 				System.out.println(firstValue);				
 			}
 			
