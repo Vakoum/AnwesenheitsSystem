@@ -18,6 +18,7 @@ public class EmployeeConverter extends EntityConverter<Employee>{
 		return new Employee(employeeID, firstName, lastName, password, is_Admin);
 	}
 	
+	@Override
 	protected String getSQLCommand() {
 		return sqlCommand;
 	}
