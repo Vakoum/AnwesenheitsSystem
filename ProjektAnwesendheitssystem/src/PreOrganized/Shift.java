@@ -12,5 +12,7 @@ public class Shift {
 	private int employeeID;
 	
 	
-	
+	public int getEmployeeID() {
+		return employeeID;
+	}
 }
