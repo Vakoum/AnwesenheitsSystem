@@ -1,76 +1,65 @@
-<<<<<<< HEAD
 package ProjektAnwesendheitssystem.src.Guiprojekt;
 
 import javax.swing.*;
-=======
-package Guiprojekt;
->>>>>>> 72b1ef399cd74e28fd2de0faf86da94e6c623a81
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AdminPanel extends JMenu {
-    private Java_GUI javaGUI;
-    private JMenuItem addPersonMenuItem;
-    private JMenuItem editPersonMenuItem;
-    private JMenuItem deletePersonMenuItem;
+public class AdminPanel extends JPanel {
+    private BenutzerVerwaltung javaGUI;
+    private JTextField txtName;
+    private JTextField txtNachname;
+    private JPasswordField txtPasswort;
 
-    public AdminPanel(Java_GUI javaGUI) {
-        this.javaGUI = javaGUI;
-        setText("AdminPanel");
+    public AdminPanel(BenutzerVerwaltung benutzerVerwaltung) {
+        this.javaGUI = benutzerVerwaltung;
+        //Anzeigebilder Erstellen
+        JLabel lblName = new JLabel("Name:");
+        add(lblName);
 
-        addPersonMenuItem = new JMenuItem("Person hinzufügen");
-        editPersonMenuItem = new JMenuItem("Person bearbeiten");
-        deletePersonMenuItem = new JMenuItem("Person entfernen");
+        txtName = new JTextField(20);
+        add(txtName);
 
-        add(addPersonMenuItem);
-        add(editPersonMenuItem);
-        add(deletePersonMenuItem);
+        JLabel lblNachname = new JLabel("Nachname:");
+        add(lblNachname);
 
-        addPersonMenuItem.addActionListener(e -> {
-            addPerson();
+        txtNachname = new JTextField(20);
+        add(txtNachname);
+
+        JLabel lblPasswort = new JLabel("Passwort:");
+        add(lblPasswort);
+
+        txtPasswort = new JPasswordField(20);
+        add(txtPasswort);
+
+        JButton btnHinzufuegen = new JButton("Hinzufügen");
+        btnHinzufuegen.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String name = txtName.getText();
+                String nachname = txtNachname.getText();
+                String passwort = new String(txtPasswort.getPassword());
+
+                // Erstelle den Benutzer
+                Benutzer benutzer = new Benutzer(name, nachname, passwort);
+                // Füge den Benutzer zum AdminPanel hinzu
+                benutzerHinzufuegen(benutzer);
+
+                // Zurücksetzen der Eingabefelder
+                txtName.setText("");
+                txtNachname.setText("");
+                txtPasswort.setText("");
+
+                JOptionPane.showInputDialog(benutzerVerwaltung, "Benutzer hinzugefügt: " + name + " " + nachname);
+            }
         });
-
-        editPersonMenuItem.addActionListener(e -> {
-            editPerson();
-        });
-
-        deletePersonMenuItem.addActionListener(e -> {
-            deletePerson();
-        });
+        add(btnHinzufuegen);
     }
 
-    private void addPerson() {
-        String name = JOptionPane.showInputDialog(javaGUI, "Geben Sie den Namen der Person ein:");
-        if (name != null && !name.isEmpty()) {
-            // Fügen Sie den Code zum Hinzufügen der Person hier ein
-            JOptionPane.showMessageDialog(javaGUI, "Person hinzugefügt: " + name);
-        }
+    public void benutzerHinzufuegen(Benutzer benutzer) {
+        // Hier kannst du den Code einfügen, um den Benutzer zur Benutzerverwaltung hinzuzufügen
     }
 
-    private void editPerson() {
-        String name = JOptionPane.showInputDialog(javaGUI, "Geben Sie den Namen der zu bearbeitenden Person ein:");
-        if (name != null && !name.isEmpty()) {
-            // Fügen Sie den Code zum Bearbeiten der Person hier ein
-            JOptionPane.showMessageDialog(javaGUI, "Person bearbeiten: " + name);
-        }
-    }
-
-    private void deletePerson() {
-        String name = JOptionPane.showInputDialog(javaGUI, "Geben Sie den Namen der zu löschenden Person ein:");
-        if (name != null && !name.isEmpty()) {
-            // Fügen Sie den Code zum Entfernen der Person hier ein
-            JOptionPane.showMessageDialog(javaGUI, "Person entfernen: " + name);
-        }
-    }
-
-    public JMenuBar createMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(this);
-
-        return menuBar;
-    }
-
-    public void showAdminPanel() {
-        javaGUI.setJMenuBar(createMenuBar());
-    }
+	public JMenuBar createMenuBar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
