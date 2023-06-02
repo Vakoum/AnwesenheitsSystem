@@ -1,4 +1,4 @@
-package ProjektAnwesendheitssystem.src.Guiprojekt;
+package Guiprojekt;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
