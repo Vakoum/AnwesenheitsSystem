@@ -1,11 +1,11 @@
 package PreOrganized;
 
-public class UIFunctionality {
+public class EmployeeManager {
 
 	private TableContainer tableContainer;
 	private EmployeeWriter employeeWriter;
 	
-	public UIFunctionality(TableContainer tableContainer) {
+	public EmployeeManager(TableContainer tableContainer) {
 		this.tableContainer = tableContainer;
 		this.employeeWriter = new EmployeeWriter();
 	}
