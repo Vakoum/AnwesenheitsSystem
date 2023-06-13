@@ -30,7 +30,6 @@ public abstract class DatabaseEntityWriter<T> {
         String sqlCommand = getDeleteCommand(entity);
         try {
             PreparedStatement statement = connection.prepareStatement(sqlCommand);
-            setDeleteStatementValues(statement, entity);
             statement.executeUpdate();
             statement.close();
         } catch (Exception e) {
@@ -41,7 +40,6 @@ public abstract class DatabaseEntityWriter<T> {
     public abstract String getInsertCommand();
     public abstract void setInsertStatementValues(PreparedStatement statement, T entity) throws SQLException;
     public abstract String getDeleteCommand(T entity);
-    public abstract void setDeleteStatementValues(PreparedStatement statement, T entity) throws SQLException;
 
     public void closeConnection() {
         try {

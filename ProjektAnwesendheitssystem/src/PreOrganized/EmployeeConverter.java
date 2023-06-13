@@ -12,7 +12,6 @@ public class EmployeeConverter extends EntityConverter<Employee>{
 		String firstName = resultSet.getString("firstName");
 		String lastName = resultSet.getString("lastName");
 		String password = resultSet.getString("password");
-		//Double totalWorkTime = resultSet.getDouble("totalWorkTime");
 		boolean is_Admin = resultSet.getBoolean("is_Admin");
 		
 		return new Employee(employeeID, firstName, lastName, password, is_Admin);

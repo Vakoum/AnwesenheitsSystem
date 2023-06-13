@@ -5,7 +5,7 @@ import java.util.*;
 
 public abstract class EntityConverter <T>{
 	
-	public abstract T convert(ResultSet resultSet) throws Exception;
+	protected abstract T convert(ResultSet resultSet) throws Exception;
 	
 	public List<T> getEntitys(){
 		List<T> entitys = new ArrayList<>();

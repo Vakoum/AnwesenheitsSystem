@@ -6,16 +6,20 @@ import java.util.*;
 public class TableContainer {
 	private List<Employee> employeeList;
 	private List<Shift> shiftList;
+	private List<TimeSpan> timeSpanList;
 	
 	private EmployeeConverter employeeConverter;
 	private ShiftConverter shiftConverter;
+	private TimeSpanConverter timeSpanConverter;
 	
 	public TableContainer() {
 		employeeList = new ArrayList<Employee>();
 		shiftList = new ArrayList<Shift>();
+		timeSpanList = new ArrayList<TimeSpan>();
 		
 		employeeConverter = new EmployeeConverter();
 		shiftConverter = new ShiftConverter();
+		timeSpanConverter = new TimeSpanConverter();
 	}
 	
 	public void distributeShifts() {
@@ -32,6 +36,7 @@ public class TableContainer {
 		shiftList = shiftConverter.getEntitys();
 		distributeShifts();
 	}
+	
 	public int getLowestID() {
 		int lowestFreeID = 1;
 		while(containsID(lowestFreeID)) {
@@ -47,6 +52,7 @@ public class TableContainer {
 		}
 		return false;
 	}
+
 	
 	public List<Employee> getEmployeeList(){
 		return employeeList;
