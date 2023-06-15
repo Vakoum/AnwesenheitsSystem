@@ -18,6 +18,7 @@ public abstract class EntityConverter <T>{
             String sqlStatement = getSQLCommand();
             ResultSet resultSet = statement.executeQuery(sqlStatement);
             
+            System.out.println("test");
             while(resultSet.next()) {
             	T entity = convert(resultSet);
             	entitys.add(entity);

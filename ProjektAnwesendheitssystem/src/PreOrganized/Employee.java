@@ -22,7 +22,6 @@ public class Employee {
 		
 		shiftList = new ArrayList<Shift>();
 		
-		shiftManager = new ShiftManager(tableContainer, this);
 	}
 	public void setEmployeeID(int employeeID) {
 		this.employeeID = employeeID;
