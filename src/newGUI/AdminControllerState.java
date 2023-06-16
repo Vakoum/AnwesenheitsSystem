@@ -7,10 +7,10 @@ import java.awt.event.*;
 public class AdminControllerState implements State {
     private JPanel panel;
 
-    private JLabel adminLabel;
     private JButton addUserButton;
     private JButton deleteUserButton;
-    //private JButton 
+    private JButton employeeAttendanceButton;
+    private JButton loginScreenButton;
 
     private WindowStateMachine stateMachine;
 
@@ -25,10 +25,11 @@ public class AdminControllerState implements State {
     }
 
     private void createComponents() {
-    	panel = new JPanel();
-        adminLabel = new JLabel();
-        addUserButton = new JButton();
-        deleteUserButton = new JButton();
+    	panel = new JPanel(new GridLayout(4, 1));
+        addUserButton = new JButton("Erstelle neue Mitarbeiter");
+        deleteUserButton = new JButton("Entferne Mitarbeiter");
+        employeeAttendanceButton = new JButton("Mitarbeiter Anwesenheit");
+        loginScreenButton = new JButton("Login Screen");
     }
 
     private void addComponentsToPanel() {
@@ -39,21 +40,18 @@ public class AdminControllerState implements State {
         deleteUserButton.addActionListener(e -> {
         	stateMachine.setCurrentState(stateMachine.getDeleteEmployeeState());
         });
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panel.add(adminLabel, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panel.add(addUserButton, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        panel.add(deleteUserButton, gbc);
+        employeeAttendanceButton.addActionListener(e -> {
+        	stateMachine.setCurrentState(stateMachine.getEmployeeAttendanceInputState());
+        });
+        loginScreenButton.addActionListener(e -> {
+        	stateMachine.setCurrentEmployee(null);
+        	stateMachine.setCurrentState(stateMachine.getLoginScreenState());
+        });
+        
+        panel.add(addUserButton);
+        panel.add(deleteUserButton);
+        panel.add(employeeAttendanceButton);
+        panel.add(loginScreenButton);
     }
 
     @Override

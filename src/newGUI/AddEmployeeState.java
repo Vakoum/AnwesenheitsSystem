@@ -44,7 +44,7 @@ public class AddEmployeeState implements State{
     	lastNameField = new JTextField();
     	passwordField = new JTextField();
     	adminCheckBox = new JCheckBox();
-    	savingButton = new JButton();
+    	savingButton = new JButton("Speicher Mitarbeiter");
     	backButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     	backButton = createBackButton();
     }

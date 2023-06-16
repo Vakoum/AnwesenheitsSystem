@@ -21,6 +21,7 @@ public class BreakManager {
 		if(shiftHasActiveBreak(shift, activeBreakIDs) == null) {
 			Break _break = new Break(getLowestBreakID(), shift.getShiftID());
 			_break.setBreakStart(LocalDateTime.now());
+			_break.setBreakEnd(null);
 			breakEditor.insertEntity(_break);			
 		}
 	}

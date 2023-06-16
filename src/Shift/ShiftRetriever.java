@@ -7,7 +7,7 @@ import Converter.EntityRetriever;
 import Converter.TimeConverter;
 
 public class ShiftRetriever extends EntityRetriever<Shift> {
-	String sqlCommand = "Select shiftID, shiftStart, shiftEnd, employeeID FROM shifts";
+	String sqlCommand = "Select shiftID, shiftStart, shiftEnd, employeeID FROM shift";
 	
 	@Override
 	public Shift convert(ResultSet resultSet) throws Exception{

@@ -1,6 +1,7 @@
 package newGUI;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -45,7 +46,7 @@ public class DeleteEmployeeState implements State {
         backButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     	backButton = createBackButton();
         buttonPanel = new JPanel();
-        saveButton = new JButton("Speichern");
+        saveButton = new JButton("Entferne Mitarbeiter");
     }
     
     public void addComponentsToPanel() {
@@ -58,9 +59,6 @@ public class DeleteEmployeeState implements State {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, 0, 10, 0);
         
-        for(Employee employee : stateMachine.getEmployeeRetriever().getEntitys()) {
-        	employeeComboBox.addItem(employee);
-        }
         
         centerPanel.add(new JLabel("Mitarbeiter: "), gbc);
 
@@ -94,6 +92,14 @@ public class DeleteEmployeeState implements State {
     
 	@Override
 	public void setPanel() {
+		for(Component component : employeeComboBox.getComponents()) {
+			employeeComboBox.remove(component);
+		}
+		employeeComboBox.remove(employeeComboBox);
+		for(Employee employee : stateMachine.getEmployeeRetriever().getEntitys()) {
+        	employeeComboBox.addItem(employee);
+        }
+        centerPanel.add(employeeComboBox, gbc);
 		stateMachine.getMainFrame().add(panel);		
 	}
 private JButton createBackButton() {

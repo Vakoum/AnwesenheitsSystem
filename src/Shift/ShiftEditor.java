@@ -17,7 +17,7 @@ public class ShiftEditor extends EntityEditor<Shift>{
 	public void setInsertStatementValues(PreparedStatement statement, Shift shift) throws SQLException {
 		statement.setInt(1, shift.getShiftID());
 		statement.setTimestamp(2, TimeConverter.localtimeToTimestamp(shift.getShiftStart()));
-		statement.setTimestamp(2, TimeConverter.localtimeToTimestamp(shift.getShiftStart()));
+		statement.setTimestamp(3, TimeConverter.localtimeToTimestamp(shift.getShiftEnd()));
 		statement.setInt(4, shift.getEmployeeID());
 	}
 	@Override

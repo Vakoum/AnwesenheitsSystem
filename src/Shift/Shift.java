@@ -10,7 +10,10 @@ public class Shift {
 	private int shiftID;
 	private int employeeID;
 	
-	public Shift(int shiftID, int employeeID) {}
+	public Shift(int shiftID, int employeeID) {
+		this.shiftID = shiftID;
+		this.employeeID = employeeID;
+	}
 	public Shift(int shiftID, LocalDateTime shiftStart, LocalDateTime shiftEnd, int employeeID) {
 		this.shiftID = shiftID;
 		this.shiftStart = shiftStart;

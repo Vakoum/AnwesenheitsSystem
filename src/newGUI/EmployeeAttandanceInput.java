@@ -7,6 +7,7 @@ import java.awt.event.*;
 public class EmployeeAttandanceInput implements State{
 
 	private WindowStateMachine stateMachine;
+	private AttendanceTextBox textBox;
 	
 	private JPanel panel;
 	private JTextArea textArea;
@@ -30,14 +31,15 @@ public class EmployeeAttandanceInput implements State{
 	
 	public void createComponents() {
 		panel = new JPanel(new BorderLayout());
+		textBox = new AttendanceTextBox(stateMachine);
 		textArea = new JTextArea();
 		backButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		backButton = createBackButton();
 		
 		bottomButtonPanel = new JPanel();
-		shiftButton = new JButton("shiftButton");
-		breakButton = new JButton("breakButton");
-		logoutButton = new JButton("logoutButton");
+		shiftButton = new JButton("Start Shift");
+		breakButton = new JButton("Start Break");
+		logoutButton = new JButton("logout");
 		
 	}
 	public void addComponentsToPanel() {
@@ -57,31 +59,84 @@ public class EmployeeAttandanceInput implements State{
 	}
 	@Override
 	public void setPanel() {
+		if(stateMachine.getShiftManager().employeeHasActiveShift(stateMachine.getCurrentEmployee()) != null) {
+			textArea.setText(textBox.setText());			
+		}
 		if(stateMachine.getCurrentEmployee().getIs_admin()) {
 			backButtonPanel.add(backButton);
 			panel.add(backButtonPanel, BorderLayout.NORTH);			
 		}
+		else {
+			if(panel.isAncestorOf(backButtonPanel)) {
+				panel.remove(backButtonPanel);
+			}
+		}
         stateMachine.getMainFrame().add(panel);
 	}
 	
+	//Created under time pressure
     private void buttonLocic() {
     	shiftButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			//startShift
-    			textArea.setText("Person kommt an: Ja");
+    			if(stateMachine.getShiftManager().employeeHasActiveShift(stateMachine.getCurrentEmployee()) == null &&
+    		    		stateMachine.getShiftManager().getShiftHasActiveBreak(stateMachine.getCurrentEmployee()) == null) {
+    					
+    					stateMachine.getShiftManager().startShift(stateMachine.getCurrentEmployee());
+    					
+    		    		shiftButton.setEnabled(true);
+    		    		shiftButton.setText("End Shift");
+    		    		
+    		    		breakButton.setEnabled(true);
+    		    		breakButton.setText("start Break");
+    		    		return;
+    		    	}
+    			if(stateMachine.getShiftManager().employeeHasActiveShift(stateMachine.getCurrentEmployee()) != null &&
+    		    		stateMachine.getShiftManager().getShiftHasActiveBreak(stateMachine.getCurrentEmployee()) == null) {
+    					
+    					stateMachine.getShiftManager().endShift(stateMachine.getCurrentEmployee());
+    					
+    		    		shiftButton.setEnabled(true);
+    		    		shiftButton.setText("Start Shift");
+    		    		
+    		    		breakButton.setEnabled(false);
+    		    		breakButton.setText("start Break");
+    		    		return;
+    		    }
     		}
     	});
     	
     	breakButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			//startBreak
-    			textArea.setText("Pause beginnt: Ja");
+    			if(stateMachine.getShiftManager().employeeHasActiveShift(stateMachine.getCurrentEmployee()) != null &&
+    		    		stateMachine.getShiftManager().getShiftHasActiveBreak(stateMachine.getCurrentEmployee()) == null) {
+    					
+    					stateMachine.getShiftManager().startBreak(stateMachine.getCurrentEmployee());
+    					
+    		    		shiftButton.setEnabled(false);
+    		    		shiftButton.setText("End Shift");
+    		    		
+    		    		breakButton.setEnabled(true);
+    		    		breakButton.setText("End Break");
+    		    		return;
+    		    }
+    			if(stateMachine.getShiftManager().employeeHasActiveShift(stateMachine.getCurrentEmployee()) != null &&
+    		    		stateMachine.getShiftManager().getShiftHasActiveBreak(stateMachine.getCurrentEmployee()) != null) {
+    					
+    					stateMachine.getShiftManager().endBreak(stateMachine.getCurrentEmployee());
+    					
+    		    		shiftButton.setEnabled(true);
+    		    		shiftButton.setText("End Shift");
+    		    		
+    		    		breakButton.setEnabled(true);
+    		    		breakButton.setText("start Break");
+    		    		return;
+    		    }
     		}
     	});
     	logoutButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	// Employee = null
-            	// go to login screen
+            	stateMachine.setCurrentEmployee(null);
+            	stateMachine.setCurrentState(stateMachine.getLoginScreenState());
             }
         });
     	

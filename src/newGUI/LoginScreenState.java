@@ -98,6 +98,7 @@ public class LoginScreenState implements State {
 
         if (stateMachine.getEmployeeManager().isCorrectPassword(selectedEmployee, password)) {
         	stateMachine.setCurrentEmployee(selectedEmployee);
+            passwordField.setText("");    
             if (selectedEmployee.getIs_admin()) {
                 stateMachine.setCurrentState(stateMachine.getAdminControllerState());
             } else {

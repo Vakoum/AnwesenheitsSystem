@@ -1,5 +1,6 @@
 package Shift;
 
+import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class ShiftManager {
 	
 	public void endShift(Employee employee) {
 		Shift shift = employeeHasActiveShift(employee);
+		System.out.println("test ");
 		if(shift != null) {
 			shift.setShiftEnd(LocalDateTime.now());
 			shiftEditor.updateEntity(shift);
