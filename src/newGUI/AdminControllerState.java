@@ -10,12 +10,12 @@ public class AdminControllerState implements State {
     private JLabel adminLabel;
     private JButton addUserButton;
     private JButton deleteUserButton;
+    //private JButton 
 
     private WindowStateMachine stateMachine;
 
     public AdminControllerState(WindowStateMachine stateMachine) {
         this.stateMachine = stateMachine;
-        panel = new JPanel();
         initialize();
     }
 
@@ -25,6 +25,7 @@ public class AdminControllerState implements State {
     }
 
     private void createComponents() {
+    	panel = new JPanel();
         adminLabel = new JLabel();
         addUserButton = new JButton();
         deleteUserButton = new JButton();
@@ -32,11 +33,11 @@ public class AdminControllerState implements State {
 
     private void addComponentsToPanel() {
         addUserButton.addActionListener(e -> {
-            // Add user functionality
+        	stateMachine.setCurrentState(stateMachine.getAddEmployeeState());
         });
 
         deleteUserButton.addActionListener(e -> {
-            // Delete user functionality
+        	stateMachine.setCurrentState(stateMachine.getDeleteEmployeeState());
         });
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -53,8 +54,6 @@ public class AdminControllerState implements State {
         gbc.gridx = 0;
         gbc.gridy = 2;
         panel.add(deleteUserButton, gbc);
-
-        stateMachine.getMainFrame().add(panel);
     }
 
     @Override

@@ -73,7 +73,7 @@ public class UserWindow {
     }
 
     public static void main(String[] args) {
-        UserWindow userWindow = new UserWindow();
-        userWindow.run();
+        //UserWindow userWindow = new UserWindow();
+        //userWindow.run();
     }
 }

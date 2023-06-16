@@ -9,6 +9,8 @@ import java.awt.*;
 
 public class WindowStateMachine {
 	
+	private Employee currentEmployee;
+	
 	private EmployeeRetriever employeeRetriever;
     private EmployeeManager employeeManager;
     private ShiftRetriever shiftRetriever;
@@ -20,12 +22,18 @@ public class WindowStateMachine {
 
     private State loginScreenState;
     private State adminControllerState;
+    private State employeeAttandenceInput;
+    private State addEmployeeState;
+    private State deleteEmployeeState;
 
     public WindowStateMachine() {
         createFrame();
         initializeEntityClasses();
         loginScreenState = new LoginScreenState(this);
         adminControllerState = new AdminControllerState(this);
+        employeeAttandenceInput = new EmployeeAttandanceInput(this);
+        addEmployeeState = new AddEmployeeState(this);
+        deleteEmployeeState = new DeleteEmployeeState(this);
         setCurrentState(loginScreenState);
     }
     private void initializeEntityClasses() {
@@ -34,7 +42,12 @@ public class WindowStateMachine {
     	shiftRetriever = new ShiftRetriever();
     	shiftManager = new ShiftManager();
     }
-
+    public Employee getCurrentEmployee() {
+    	return currentEmployee;
+    }
+    public void setCurrentEmployee(Employee currentEmployee) {
+    	this.currentEmployee = currentEmployee;
+    }
     public EmployeeRetriever getEmployeeRetriever() {
     	return employeeRetriever;
     }
@@ -54,7 +67,15 @@ public class WindowStateMachine {
     public State getAdminControllerState() {
         return adminControllerState;
     }
-
+    public State getAddEmployeeState() {
+    	return addEmployeeState;
+    }
+    public State getDeleteEmployeeState() {
+    	return deleteEmployeeState;
+    }
+    public State getEmployeeAttendanceInputState() {
+    	return employeeAttandenceInput;
+    }
     public JFrame getMainFrame() {
         return mainFrame;
     }

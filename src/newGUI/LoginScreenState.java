@@ -89,8 +89,6 @@ public class LoginScreenState implements State {
         panel.add(loginButton, gbc);
         gbc.gridx = 1;
         panel.add(cancelButton, gbc);
-
-        stateMachine.getMainFrame().add(panel);
     }
 
     private void login() {
@@ -99,10 +97,11 @@ public class LoginScreenState implements State {
         String password = new String(charPassword);
 
         if (stateMachine.getEmployeeManager().isCorrectPassword(selectedEmployee, password)) {
+        	stateMachine.setCurrentEmployee(selectedEmployee);
             if (selectedEmployee.getIs_admin()) {
                 stateMachine.setCurrentState(stateMachine.getAdminControllerState());
             } else {
-                // Open normal window
+                stateMachine.setCurrentState(stateMachine.getEmployeeAttendanceInputState());
             }
         } else {
             JOptionPane.showMessageDialog(stateMachine.getMainFrame(), "Ungültige Anmeldedaten!", "Fehler", JOptionPane.ERROR_MESSAGE);
